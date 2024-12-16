@@ -1,4 +1,3 @@
-
 export default function Story() {
     const story = [
         { imagem: "assets/img/9gag.svg", usuario: "9gag" },
@@ -10,10 +9,10 @@ export default function Story() {
         { imagem: "assets/img/filomoderna.svg", usuario: "filomoderna" },
         { imagem: "assets/img/memeriagourmet.svg", usuario: "memeriagourmet" },
     ]
-
-
+  
+  
     return (
-
+  
         <div class="stories">
             {story.map(story => <div class="story">
                 <div class="imagem">
@@ -26,8 +25,6 @@ export default function Story() {
             )}
         </div>
     )
-
-
-}
-
-
+  
+  
+  }
