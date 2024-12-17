@@ -1,79 +1,107 @@
-export default function Posts(){
-    return(
-        <div className="posts">
-          
-        <div className="post">
-          <div className="topo">
-            <div className="usuario">
-              <img src="assets/img/meowed.svg" alt="meowed"/>
-              meowed
-            </div>
-            <div className="acoes">
-              <ion-icon name="ellipsis-horizontal"></ion-icon>
-            </div>
+import React, { useState } from 'react';
+
+export default function Posts() {
+  
+  const postsData = [
+    {
+      id: 1,
+      user: 'meowed',
+      userImg: 'assets/img/meowed.svg',
+      postImg: 'assets/img/gato-telefone.svg',
+      likedBy: 'respondeai',
+      likesCount: 101523,
+    },
+    {
+      id: 2,
+      user: 'barked',
+      userImg: 'assets/img/barked.svg',
+      postImg: 'assets/img/dog.svg',
+      likedBy: 'adorable_animals',
+      likesCount: 99159,
+    },
+  ];
+
+  return (
+    <div className="posts">
+      {postsData.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
+    </div>
+  );
+}
+
+
+function Post({ post }) {
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likesCount);
+  const [saved, setSaved] = useState(false);
+
+  
+  function imagemCurtida() {
+    if (liked) {
+      setLikesCount(likesCount - 1);
+    } else {
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
+  }
+
+ 
+  function salvarImagem() {
+    setSaved(!saved);
+    
+  }
+
+  return (
+    <div className="post">
+      <div className="topo">
+        <div className="usuario">
+          <img src={post.userImg} alt={post.user} />
+          {post.user}
+        </div>
+        <div className="acoes">
+          <ion-icon name="ellipsis-horizontal"></ion-icon>
+        </div>
+      </div>
+
+      
+      <div className="conteudo" onClick={imagemCurtida} style={{ cursor: 'pointer' }}>
+        <img src={post.postImg} alt="post" />
+      </div>
+
+      <div className="fundo">
+        <div className="acoes">
+          <div>
+            
+            <ion-icon
+              name={liked ? 'heart' : 'heart-outline'}
+              style={{ color: liked ? 'red' : 'black', cursor: 'pointer' }}
+              onClick={imagemCurtida}
+            ></ion-icon>
+
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline"></ion-icon>
           </div>
 
-          <div className="conteudo">
-            <img src="assets/img/gato-telefone.svg" alt="gato-telefone"/>
-          </div>
-
-          <div className="fundo">
-            <div className="acoes">
-              <div>
-                <ion-icon name="heart-outline"></ion-icon>
-                <ion-icon name="chatbubble-outline"></ion-icon>
-                <ion-icon name="paper-plane-outline"></ion-icon>
-              </div>
-              <div>
-                <ion-icon name="bookmark-outline"></ion-icon>
-              </div>
-            </div>
-
-            <div className="curtidas">
-              <img src="assets/img/respondeai.svg" alt="respondeai"/>
-              <div className="texto">
-                Curtido por <strong>respondeai</strong> e <strong>outras 101.523 pessoas</strong>
-              </div>
-            </div>
+         
+          <div>
+            <ion-icon
+              name={saved ? 'bookmark' : 'bookmark-outline'}
+              style={{ color: saved ? 'blue' : 'black', cursor: 'pointer' }}
+              onClick={salvarImagem}
+            ></ion-icon>
           </div>
         </div>
 
-        <div className="post">
-          <div className="topo">
-            <div className="usuario">
-              <img src="assets/img/barked.svg" alt="barked"/>
-              barked
-            </div>
-            <div className="acoes">
-              <ion-icon name="ellipsis-horizontal"></ion-icon>
-            </div>
-          </div>
-
-          <div className="conteudo">
-            <img src="assets/img/dog.svg" alt="dog" />
-          </div>
-
-          <div className="fundo">
-            <div className="acoes">
-              <div>
-                <ion-icon name="heart-outline"></ion-icon>
-                <ion-icon name="chatbubble-outline"></ion-icon>
-                <ion-icon name="paper-plane-outline"></ion-icon>
-              </div>
-              <div>
-                <ion-icon name="bookmark-outline"></ion-icon>
-              </div>
-            </div>
-
-            <div className="curtidas">
-              <img src="assets/img/adorable_animals.svg" alt="adorable_animals"/>
-              <div className="texto">
-                Curtido por <strong>adorable_animals</strong> e <strong>outras 99.159 pessoas</strong>
-              </div>
-            </div>
+        
+        <div className="curtidas">
+          <img src="assets/img/respondeai.svg" alt={post.likedBy} />
+          <div className="texto">
+            Curtido por <strong>{post.likedBy}</strong> e{' '}
+            <strong>outras {likesCount.toLocaleString()} pessoas</strong>
           </div>
         </div>
       </div>
-    )
+    </div>
+  );
 }
-
