@@ -8,20 +8,20 @@ export default function Post() {
     ]
 
     return (
-        <div class="post">
-            <div class="topo">
+        <div className="post">
+            <div className="topo">
 
                 {post.map(post => <Usuario nome={post.usuario} foto={post.imagemUsuario}/>)}
 
-                <div class="acoes">
+                <div className="acoes">
                     <ion-icon name="ellipsis-horizontal"></ion-icon>
                 </div>
             </div>
 
             <Conteudo foto={post.imgPost} />
            
-            <div class="fundo">
-                <div class="acoes">
+            <div className="fundo">
+                <div className="acoes">
                     <div>
                         <ion-icon name="heart-outline"></ion-icon>
                         <ion-icon name="chatbubble-outline"></ion-icon>
@@ -32,9 +32,9 @@ export default function Post() {
                     </div>
                 </div>
 
-                <div class="curtidas">
+                <div className="curtidas">
                     <img src="assets/img/respondeai.svg" alt="respondeai" />
-                    <div class="texto">
+                    <div className="texto">
                         Curtido por <strong>respondeai</strong> e <strong>outras 101.523 pessoas</strong>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export default function Post() {
 function Usuario(props) {
     return (
 
-        <div class="usuario">
+        <div className="usuario">
             <img src={props.foto} alt="meowed" />
             {props.nome}
         </div>
@@ -59,7 +59,7 @@ function Usuario(props) {
 
 function Conteudo(props){
     return(
-        <div class="conteudo">
+        <div className="conteudo">
         <img src={props.foto} alt="gato-telefone" />
     </div>
 

@@ -7,19 +7,19 @@ export default function User(){
 
 
   function inserirNome(){
-    const nomeDigitado = prompt("Digite o seu nome: ");
+    const nomeDigitado = prompt("Digite o seu nickname: ");
     setNome(nomeDigitado);
   }
 
   function inserirImagem(){
-    const imagemAnexada = prompt("Insira a sua imagem aqui: ");
-    setImagem(imagemAnexada)
+    const imagemAnexada = prompt("Insira o link da imagem: ");
+    setImagem(imagemAnexada);
   }
 
     return(
-        <div class="usuario">
+        <div className="usuario">
           <img onClick={inserirImagem} src={!imagem ? "assets/img/catanacomics.svg" : `${imagem}`} alt="imagem de perfil"/>
-          <div class="texto">
+          <div className="texto">
             <span>
               <strong>{!nome ? "catanacomics" : `${nome}`}</strong>
               <ion-icon name="pencil" onClick={inserirNome}></ion-icon>
