@@ -1,68 +1,73 @@
-export default function Post() {
-    const post = [
+import React, { useState } from 'react';
 
-        { usuario: "meowed", imagemUsuario: "assets/img/meowed.svg", imgPost: "assets/img/gato-telefone.svg" },
-        { usuario: "barked", imagemUsuario: "assets/img/barked.svg", imgPost: "assets/img/dog.svg" },
-        
+export default function Post({ post }) {
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likesCount);
+  const [saved, setSaved] = useState(false);
 
-    ]
+  function imagemCurtida() {
+    if (liked) {
+      setLikesCount(likesCount - 1);
+    } else {
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
+  }
 
-    return (
-        <div className="post">
-            <div className="topo">
+  function salvarImagem() {
+    setSaved(!saved);
+  }
 
-                {post.map(post => <Usuario nome={post.usuario} foto={post.imagemUsuario}/>)}
-
-                <div className="acoes">
-                    <ion-icon name="ellipsis-horizontal"></ion-icon>
-                </div>
-            </div>
-
-            <Conteudo foto={post.imgPost} />
-           
-            <div className="fundo">
-                <div className="acoes">
-                    <div>
-                        <ion-icon name="heart-outline"></ion-icon>
-                        <ion-icon name="chatbubble-outline"></ion-icon>
-                        <ion-icon name="paper-plane-outline"></ion-icon>
-                    </div>
-                    <div>
-                        <ion-icon name="bookmark-outline"></ion-icon>
-                    </div>
-                </div>
-
-                <div className="curtidas">
-                    <img src="assets/img/respondeai.svg" alt="respondeai" />
-                    <div className="texto">
-                        Curtido por <strong>respondeai</strong> e <strong>outras 101.523 pessoas</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    )
-}
-
-
-function Usuario(props) {
-    return (
-
+  return (
+    <div className="post">
+      <div className="topo">
         <div className="usuario">
-            <img src={props.foto} alt="meowed" />
-            {props.nome}
+          <img src={post.userImg} alt={post.user} />
+          {post.user}
+        </div>
+        <div className="acoes">
+          <ion-icon name="ellipsis-horizontal"></ion-icon>
+        </div>
+      </div>
+
+      <div
+        className="conteudo"
+        onClick={imagemCurtida}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src={post.postImg} alt="post" />
+      </div>
+
+      <div className="fundo">
+        <div className="acoes">
+          <div>
+            <ion-icon
+              name={liked ? 'heart' : 'heart-outline'}
+              style={{ color: liked ? 'red' : 'black', cursor: 'pointer' }}
+              onClick={imagemCurtida}
+            ></ion-icon>
+
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline"></ion-icon>
+          </div>
+
+          <div>
+            <ion-icon
+              name={saved ? 'bookmark' : 'bookmark-outline'}
+              style={{ color: saved ? 'blue' : 'black', cursor: 'pointer' }}
+              onClick={salvarImagem}
+            ></ion-icon>
+          </div>
         </div>
 
-    )
-}
-
-
-function Conteudo(props){
-    return(
-        <div className="conteudo">
-        <img src={props.foto} alt="gato-telefone" />
+        <div className="curtidas">
+          <img src="assets/img/respondeai.svg" alt={post.likedBy} />
+          <div className="texto">
+            Curtido por <strong>{post.likedBy}</strong> e{' '}
+            <strong>outras {likesCount.toLocaleString()} pessoas</strong>
+          </div>
+        </div>
+      </div>
     </div>
-
-        
-    )
+  );
 }
